@@ -53,7 +53,7 @@ public class Game {
                 showBoard();
                 Pos pos = getPos();
                 if(pos == null) continue;
-                board.reveal(pos);
+                board.flood(pos);
                 a = false;
             }
         }
@@ -62,7 +62,7 @@ public class Game {
             showBoard();
             Pos pos = getPos();
             if(pos == null) continue;
-            board.reveal(pos);
+            board.flood(pos);
         }
     }
 
@@ -79,13 +79,18 @@ public class Game {
     }
 
     public void showBoard(){
+        String topLine = "", sideLine = "|";
+        for(int i = 0; i < difficulty.getBoardSize()+2; i++)
+            topLine += "-";
         U.p();
+        U.p(topLine);
         for(Tile[] tiles : board.getTiles()){
             String row = "";
             for(Tile tile : tiles)
                 row += tile.getChar();
-            U.p(row);
+            U.p(sideLine + row + sideLine);
         }
+        U.p(topLine);
         U.p();
     }
 

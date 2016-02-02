@@ -34,6 +34,10 @@ public class Tile {
         return bomb;
     }
 
+    public boolean isRevealed() {
+        return revealed;
+    }
+
     public void setNearbyBombs(char nearbyBombs){
         this.nearbyBombs = nearbyBombs;
     }
@@ -55,6 +59,10 @@ public class Tile {
 
     public void finalReveal(){
         revealed = true;
+    }
+
+    public char getNearbyBombs() {
+        return nearbyBombs;
     }
 
 }
