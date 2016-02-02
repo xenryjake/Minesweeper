@@ -54,7 +54,6 @@ public class Tile {
             Minesweeper.getGame().end();
             return;
         }
-        finalReveal();
     }
 
     public void finalReveal(){

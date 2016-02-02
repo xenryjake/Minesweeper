@@ -66,23 +66,28 @@ public class Board {
         reveal(pos.getX(), pos.getY());
     }
 
-    public void flood(int x, int y){
+    public void flood(int x, int y, boolean first){
         if(x < 0) return;
         if(y < 0) return;
         if(x >= tiles.length) return;
         if(y >= tiles[x].length) return;
-        if(tiles[x][y].isRevealed()) return;
+        if(first) reveal(x, y);
+        else if(tiles[x][y].isRevealed()) return;
+        if(tiles[x][y].isBomb()) return;
         reveal(x, y);
         if(tiles[x][y].getNearbyBombs() != ' ') return;
-        if(tiles[x][y].isBomb()) return;
-        flood(x+1, y);
-        flood(x-1, y);
-        flood(x, y+1);
-        flood(x, y-1);
+        flood(x-1, y-1, false);
+        flood(x-1, y, false);
+        flood(x-1, y+1, false);
+        flood(x, y-1, false);
+        flood(x, y+1, false);
+        flood(x+1, y-1, false);
+        flood(x+1, y, false);
+        flood(x+1, y+1, false);
     }
 
     public void flood(Pos pos){
-        flood(pos.getX(), pos.getY());
+        flood(pos.getX(), pos.getY(), true);
     }
 
 }

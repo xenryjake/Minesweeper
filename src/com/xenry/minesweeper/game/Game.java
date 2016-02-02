@@ -43,7 +43,6 @@ public class Game {
         U.p("Game over!");
         active = false;
         board.revealAll();
-        showBoard();
     }
 
     public void doInput(){
