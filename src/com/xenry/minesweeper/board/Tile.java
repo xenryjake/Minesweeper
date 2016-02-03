@@ -9,6 +9,8 @@ import com.xenry.minesweeper.Minesweeper;
  */
 public class Tile {
 
+    public static final char FLAG_CHAR = 'X', REVEALED_CHAR = ' ', BOMB_CHAR = '*', NONE_NEARBY_CHAR = '-';
+
     private Pos pos;
     private boolean bomb, revealed, flagged;
     private char nearbyBombs;
@@ -43,9 +45,9 @@ public class Tile {
     }
 
     public char getChar(){
-        if(flagged) return '#';
-        if(!revealed) return ' ';
-        if(bomb) return '*';
+        if(flagged) return FLAG_CHAR;
+        if(!revealed) return REVEALED_CHAR;
+        if(bomb) return BOMB_CHAR;
         return nearbyBombs;
     }
 

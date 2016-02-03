@@ -14,17 +14,21 @@ public class Game {
     private boolean active;
     private Board board;
     private MFrame frame;
+    private Timer timer;
     private Difficulty difficulty;
 
     public Game(Difficulty difficulty){
         this.difficulty = difficulty;
         this.active = true;
+        this.timer = new Timer();
         board = new Board(difficulty.getBoardSize(), difficulty.getChance());
     }
 
     public void enable(){
         U.p("Starting Minesweeper...");
         this.frame = new MFrame(this);
+        timer.start();
+        timer.setActive(true);
     }
 
     public Board getBoard() {
@@ -42,13 +46,19 @@ public class Game {
     public void end(){
         if(!active) return;
         U.p("Game over!");
+        timer.setActive(false);
         active = false;
         board.revealAll();
         frame.updateAll();
+        U.p("TIMER: " + timer.getCurrentSecs());
     }
 
     public MFrame getFrame() {
         return frame;
+    }
+
+    public Timer getTimer() {
+        return timer;
     }
 
 }

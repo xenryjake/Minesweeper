@@ -24,6 +24,7 @@ public class MButton extends JButton implements ActionListener {
 
     public void actionPerformed(ActionEvent e){
         Game game = Minesweeper.getGame();
+        if(!game.isActive()) return;
         if(game.getFrame().isFlagMode()){
             tile.toggleFlag();
         }else if(!tile.isFlagged()){
@@ -35,7 +36,7 @@ public class MButton extends JButton implements ActionListener {
     public void update(){
         String s = String.valueOf(tile.getChar());
         setText(s);
-        setVisible(!s.equals("-"));
+        setVisible(!s.equals(Tile.NONE_NEARBY_CHAR));
     }
 
 }
