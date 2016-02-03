@@ -19,8 +19,9 @@ public class MFrame extends JFrame {
 
     private Game game;
     private MPanel[][] panels;
-    private JLabel infoLabel, timeLabel;
+    private JLabel infoLabel, timeLabel, statusLabel;
     private JButton toggleModeButton;
+    private JPanel infoPan;
 
     public MFrame(final Game game){
         this.game = game;
@@ -43,12 +44,13 @@ public class MFrame extends JFrame {
         }
         add(pan, BorderLayout.CENTER);
 
-        Panel infoPan = new Panel();
+        infoPan = new JPanel();
         infoPan.setLayout(new GridLayout(1, 1));
-        infoLabel = new JLabel("0/0 bombs remaining");
-        infoPan.add(infoLabel);
         timeLabel = new JLabel("0 seconds elapsed");
         infoPan.add(timeLabel);
+        infoLabel = new JLabel("0/0 bombs remaining");
+        infoPan.add(infoLabel);
+        statusLabel = new JLabel("");
         add(infoPan, BorderLayout.NORTH);
 
         Panel togglePan = new Panel();
@@ -79,8 +81,15 @@ public class MFrame extends JFrame {
         infoLabel.setText(game.getBoard().getRemainingBombs() + "/" + game.getBoard().getTotalBombs() + " bombs remaining");
     }
 
-    public void setInfo(String status){
-        infoLabel.setText(status);
+    public void setStatus(String status){
+        statusLabel.setText(status);
+        if(status.equals("")) {
+            infoPan.remove(statusLabel);
+            infoPan.add(infoLabel);
+        }else{
+            infoPan.remove(infoLabel);
+            infoPan.add(statusLabel);
+        }
     }
 
     public void updateTime(int seconds){
