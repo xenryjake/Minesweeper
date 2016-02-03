@@ -18,13 +18,13 @@ public class MFrame extends JFrame {
     private boolean flagMode = false;
 
     private Game game;
-    private MButton[][] buttons;
+    private MPanel[][] panels;
     private JLabel infoLabel;
 
     public MFrame(final Game game){
         this.game = game;
         int length = game.getDifficulty().getBoardSize();
-        this.buttons = new MButton[length][length];
+        this.panels = new MPanel[length][length];
         setSize(0,0);
         setVisible(true);
         setMinimumSize(new Dimension(300, 300));
@@ -34,9 +34,9 @@ public class MFrame extends JFrame {
         Panel pan = new Panel(new GridLayout(length, length));
         for(Tile[] tiles : game.getBoard().getTiles()){
             for(final Tile tile : tiles){
-                MButton button = new MButton(tile);
-                pan.add(button);
-                buttons[tile.getX()][tile.getY()] = button;
+                MPanel mp = new MPanel(tile);
+                pan.add(mp);
+                panels[tile.getX()][tile.getY()] = mp;
             }
         }
         add(pan, BorderLayout.CENTER);
@@ -56,17 +56,9 @@ public class MFrame extends JFrame {
         setSize(400,400);
     }
 
-    public Game getGame() {
-        return game;
-    }
-
-    public MButton getButton(int x, int y){
-        return buttons[x][y];
-    }
-
     public void updateAll(){
-        for(MButton[] buttons : this.buttons)
-            for(MButton button : buttons)
+        for(MPanel[] buttons : this.panels)
+            for(MPanel button : buttons)
                 button.update();
     }
 

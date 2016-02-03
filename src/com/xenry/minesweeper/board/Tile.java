@@ -9,7 +9,7 @@ import com.xenry.minesweeper.Minesweeper;
  */
 public class Tile {
 
-    public static final char FLAG_CHAR = 'X', REVEALED_CHAR = ' ', BOMB_CHAR = '*', NONE_NEARBY_CHAR = '-';
+    public static final char FLAG_CHAR = '#', BOMB_CHAR = 'X', NONE_NEARBY_CHAR = ' ';
 
     private Pos pos;
     private boolean bomb, revealed, flagged;
@@ -45,19 +45,14 @@ public class Tile {
     }
 
     public char getChar(){
-        if(flagged) return FLAG_CHAR;
-        if(!revealed) return REVEALED_CHAR;
         if(bomb) return BOMB_CHAR;
         return nearbyBombs;
     }
 
     public void reveal(){
         revealed = true;
-        if(bomb){
+        if(bomb)
             Minesweeper.getGame().end();
-            return;
-        }
-        finalReveal();
     }
 
     public void finalReveal(){
@@ -69,7 +64,7 @@ public class Tile {
     }
 
     public boolean toggleFlag(){
-        flagged = !flagged;
+        if(!revealed) flagged = !flagged;
         return flagged;
     }
 

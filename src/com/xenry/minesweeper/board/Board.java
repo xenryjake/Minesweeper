@@ -31,7 +31,7 @@ public class Board {
                 if(x != 0 && y != 0 && tiles[x-1][y-1].isBomb()) nearby++;
                 if(x != 0 && tiles[x-1][y].isBomb()) nearby++;
                 if(x != 0 && tiles[x].length > y+1 && tiles[x-1][y+1].isBomb()) nearby++;
-                tiles[x][y].setNearbyBombs(nearby == '0' ? '-' : nearby);
+                tiles[x][y].setNearbyBombs(nearby == '0' ? Tile.NONE_NEARBY_CHAR : nearby);
             }
         }
     }
