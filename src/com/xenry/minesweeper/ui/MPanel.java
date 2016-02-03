@@ -56,4 +56,13 @@ public class MPanel extends JPanel implements ActionListener {
         add(label);
     }
 
+    public void updateDanger(){
+        button.setVisible(false);
+        remove(label);
+        remove(button);
+        label.setText(String.valueOf(Tile.BOMB_CHAR));
+        setBackground(Color.red);
+        add(label);
+    }
+
 }

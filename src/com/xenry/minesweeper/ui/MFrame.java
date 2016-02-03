@@ -110,4 +110,8 @@ public class MFrame extends JFrame {
         return flagMode;
     }
 
+    public MPanel getPanel(int x, int y){
+        return panels[x][y];
+    }
+
 }

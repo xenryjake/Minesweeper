@@ -52,8 +52,10 @@ public class Tile {
 
     public void reveal(){
         revealed = true;
-        if(bomb)
+        if(bomb){
             Minesweeper.getGame().end();
+            Minesweeper.getGame().getFrame().getPanel(getX(), getY()).updateDanger();
+        }
     }
 
     public void finalReveal(){
