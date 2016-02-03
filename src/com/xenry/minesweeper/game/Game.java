@@ -46,7 +46,7 @@ public class Game {
 
     public void end(){
         if(!active) return;
-        U.p("Game over!");
+        frame.setInfo("You lose :(");
         stop();
     }
 
@@ -66,7 +66,7 @@ public class Game {
             for(Tile tile : tiles)
                 if(!tile.isBomb() && !tile.isRevealed()) won = false;
         if(!won) return false;
-        U.p("You win!");
+        frame.setInfo("You win!");
         stop();
         return true;
     }

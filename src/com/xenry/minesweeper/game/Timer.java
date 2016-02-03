@@ -1,5 +1,7 @@
 package com.xenry.minesweeper.game;
 
+import com.xenry.minesweeper.Minesweeper;
+
 /**
  * Minesweeper created by Henry Jake on February 02, 2016.
  * Copyright 2016 Henry Jake.
@@ -7,14 +9,15 @@ package com.xenry.minesweeper.game;
  */
 public class Timer extends Thread {
 
-    private float currentSecs = 0;
+    private int currentSecs = 0;
     private boolean active = false;
 
     @Override
     public void run() {
         try{
-            Thread.sleep(100);
-            if(active) currentSecs += 0.1;
+            Thread.sleep(1000);
+            if(active) currentSecs += 1;
+            Minesweeper.getGame().getFrame().updateTime(currentSecs);
         }catch(Exception ex){}
         run();
     }
@@ -23,7 +26,7 @@ public class Timer extends Thread {
         currentSecs = 0;
     }
 
-    public float getCurrentSecs(){
+    public int getCurrentSecs(){
         return currentSecs;
     }
 

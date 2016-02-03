@@ -19,7 +19,7 @@ public class MFrame extends JFrame {
 
     private Game game;
     private MPanel[][] panels;
-    private JLabel infoLabel;
+    private JLabel infoLabel, timeLabel;
     private JButton toggleModeButton;
 
     public MFrame(final Game game){
@@ -32,6 +32,7 @@ public class MFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Minesweeper Beta");
         setLayout(new BorderLayout());
+
         Panel pan = new Panel(new GridLayout(length, length));
         for(Tile[] tiles : game.getBoard().getTiles()){
             for(final Tile tile : tiles){
@@ -41,8 +42,17 @@ public class MFrame extends JFrame {
             }
         }
         add(pan, BorderLayout.CENTER);
-        infoLabel = new JLabel("loading...");
-        add(infoLabel, BorderLayout.NORTH);
+
+        Panel infoPan = new Panel();
+        infoPan.setLayout(new GridLayout(1, 1));
+        infoLabel = new JLabel("0/0 bombs remaining");
+        infoPan.add(infoLabel);
+        timeLabel = new JLabel("0 seconds elapsed");
+        infoPan.add(timeLabel);
+        add(infoPan, BorderLayout.NORTH);
+
+        Panel togglePan = new Panel();
+        togglePan.setLayout(new GridLayout(1, 1));
         toggleModeButton = new JButton("Switch to Flag mode");
         toggleModeButton.addActionListener(new ActionListener() {
             @Override
@@ -50,8 +60,11 @@ public class MFrame extends JFrame {
                 toggleMode();
             }
         });
-        add(toggleModeButton, BorderLayout.SOUTH);
+        togglePan.add(toggleModeButton);
+        add(togglePan, BorderLayout.SOUTH);
+
         setSize(400, 400);
+        updateAll();
     }
 
     public void updateAll(){
@@ -59,6 +72,19 @@ public class MFrame extends JFrame {
             for(MPanel button : buttons)
                 button.update();
         updateToggleModeButton();
+        updateInfo();
+    }
+
+    public void updateInfo(){
+        infoLabel.setText(game.getBoard().getRemainingBombs() + "/" + game.getBoard().getTotalBombs() + " bombs remaining");
+    }
+
+    public void setInfo(String status){
+        infoLabel.setText(status);
+    }
+
+    public void updateTime(int seconds){
+        timeLabel.setText(seconds + " seconds elapsed");
     }
 
     public void updateToggleModeButton(){

@@ -12,6 +12,7 @@ import java.util.Random;
 public class Board {
 
     private Tile[][] tiles;
+    private int bombs = 0;
 
     public Board(int boardSizeLength, int chance){
         tiles = new Tile[boardSizeLength][boardSizeLength];
@@ -19,6 +20,7 @@ public class Board {
         for(int x = 0; x < tiles.length; x++){
             for(int y = 0; y < tiles[x].length; y++){
                 tiles[x][y] = new Tile(x, y, new Random().nextInt(chance) == 0);
+                if(tiles[x][y].isBomb()) bombs++;
             }
         }
 
@@ -87,6 +89,22 @@ public class Board {
     public void flood(Pos pos){
         flood(pos.getX(), pos.getY(), true);
         Minesweeper.getGame().checkWin();
+    }
+
+    public int getTotalBombs(){
+        return bombs;
+    }
+
+    public int getRemainingBombs(){
+        int bombs = 0, flagged = 0;
+        for(Tile[] tiles : this.tiles) {
+            for (Tile tile : tiles) {
+                if(tile.isRevealed()) continue;
+                if(tile.isFlagged()) flagged++;
+                if(tile.isBomb()) bombs++;
+            }
+        }
+        return bombs - flagged;
     }
 
 }
