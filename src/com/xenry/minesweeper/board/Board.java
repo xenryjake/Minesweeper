@@ -1,5 +1,7 @@
 package com.xenry.minesweeper.board;
 
+import com.xenry.minesweeper.Minesweeper;
+
 import java.util.Random;
 
 /**
@@ -58,15 +60,11 @@ public class Board {
                 tile.finalReveal();
     }
 
-    public void reveal(int x, int y){
+    private void reveal(int x, int y){
         getTile(x, y).reveal();
     }
 
-    public void reveal(Pos pos){
-        reveal(pos.getX(), pos.getY());
-    }
-
-    public void flood(int x, int y, boolean first){
+    private void flood(int x, int y, boolean first){
         if(x < 0) return;
         if(y < 0) return;
         if(x >= tiles.length) return;
@@ -88,6 +86,7 @@ public class Board {
 
     public void flood(Pos pos){
         flood(pos.getX(), pos.getY(), true);
+        Minesweeper.getGame().checkWin();
     }
 
 }

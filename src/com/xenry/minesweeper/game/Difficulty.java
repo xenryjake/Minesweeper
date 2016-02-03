@@ -7,7 +7,7 @@ package com.xenry.minesweeper.game;
  */
 public enum Difficulty {
 
-    TEST(15, 9);
+    TEST(9, 9);
 
     private int boardSize, chance;
 

@@ -42,9 +42,7 @@ public class MPanel extends JPanel implements ActionListener {
 
     public void update(){
         if(!tile.isRevealed() || tile.isBomb()){
-            if(tile.isFlagged())
-                button.setText(String.valueOf(Tile.FLAG_CHAR));
-            else if(tile.isBomb() && tile.isRevealed())
+            if(tile.isFlagged() || (tile.isBomb() && tile.isRevealed()))
                 button.setText(String.valueOf(Tile.BOMB_CHAR));
             else button.setText("");
             button.setVisible(true);

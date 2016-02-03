@@ -2,6 +2,7 @@ package com.xenry.minesweeper.game;
 
 import com.xenry.minesweeper.U;
 import com.xenry.minesweeper.board.Board;
+import com.xenry.minesweeper.board.Tile;
 import com.xenry.minesweeper.ui.MFrame;
 
 /**
@@ -46,11 +47,27 @@ public class Game {
     public void end(){
         if(!active) return;
         U.p("Game over!");
+        stop();
+    }
+
+    public void stop(){
         timer.setActive(false);
         active = false;
         board.revealAll();
         frame.updateAll();
         U.p("TIMER: " + timer.getCurrentSecs());
+    }
+
+    public boolean checkWin(){
+        if(!active) return false;
+        boolean won = true;
+        for(Tile[] tiles : board.getTiles())
+            for(Tile tile : tiles)
+                if(!tile.isBomb() && !tile.isRevealed()) won = false;
+        if(!won) return false;
+        U.p("You win!");
+        stop();
+        return true;
     }
 
     public MFrame getFrame() {
