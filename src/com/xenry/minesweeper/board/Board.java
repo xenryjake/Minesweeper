@@ -31,7 +31,7 @@ public class Board {
                 if(x != 0 && y != 0 && tiles[x-1][y-1].isBomb()) nearby++;
                 if(x != 0 && tiles[x-1][y].isBomb()) nearby++;
                 if(x != 0 && tiles[x].length > y+1 && tiles[x-1][y+1].isBomb()) nearby++;
-                tiles[x][y].setNearbyBombs(nearby == '0' ? ' ' : nearby);
+                tiles[x][y].setNearbyBombs(nearby == '0' ? '-' : nearby);
             }
         }
     }
@@ -75,7 +75,7 @@ public class Board {
         else if(tiles[x][y].isRevealed()) return;
         if(tiles[x][y].isBomb()) return;
         reveal(x, y);
-        if(tiles[x][y].getNearbyBombs() != ' ') return;
+        if(tiles[x][y].getNearbyBombs() != '-') return;
         flood(x-1, y-1, false);
         flood(x-1, y, false);
         flood(x-1, y+1, false);

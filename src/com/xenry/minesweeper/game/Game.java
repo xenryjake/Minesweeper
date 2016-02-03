@@ -2,8 +2,7 @@ package com.xenry.minesweeper.game;
 
 import com.xenry.minesweeper.U;
 import com.xenry.minesweeper.board.Board;
-import com.xenry.minesweeper.board.Pos;
-import com.xenry.minesweeper.board.Tile;
+import com.xenry.minesweeper.ui.MFrame;
 
 /**
  * Minesweeper created by Henry Jake on February 01, 2016.
@@ -14,6 +13,7 @@ public class Game {
 
     private boolean active;
     private Board board;
+    private MFrame frame;
     private Difficulty difficulty;
 
     public Game(Difficulty difficulty){
@@ -24,7 +24,7 @@ public class Game {
 
     public void enable(){
         U.p("Starting Minesweeper...");
-        doInput();
+        this.frame = new MFrame(this);
     }
 
     public Board getBoard() {
@@ -40,58 +40,15 @@ public class Game {
     }
 
     public void end(){
+        if(!active) return;
         U.p("Game over!");
         active = false;
         board.revealAll();
-        showBoard();
+        frame.updateAll();
     }
 
-    public void doInput(){
-        {
-            boolean a = true;
-            while(a){
-                showBoard();
-                Pos pos = getPos();
-                if(pos == null) continue;
-                board.flood(pos);
-                a = false;
-            }
-        }
-        active = true;
-        while(active){
-            showBoard();
-            Pos pos = getPos();
-            if(pos == null) continue;
-            board.flood(pos);
-        }
-    }
-
-    public Pos getPos(){
-        String val = U.get("Enter a position (#,#): ").replace(" ", "");
-        Pos pos;
-        try{
-            pos = new Pos(Integer.valueOf(val.split(",")[0]), Integer.valueOf(val.split(",")[1]));
-        }catch(Exception ex){
-            return null;
-        }
-        if(pos.getX() >= difficulty.getBoardSize() || pos.getY() >= difficulty.getBoardSize()) return null;
-        return pos;
-    }
-
-    public void showBoard(){
-        String topLine = "", sideLine = "|";
-        for(int i = 0; i < difficulty.getBoardSize()+2; i++)
-            topLine += "-";
-        U.p();
-        U.p(topLine);
-        for(Tile[] tiles : board.getTiles()){
-            String row = "";
-            for(Tile tile : tiles)
-                row += tile.getChar();
-            U.p(sideLine + row + sideLine);
-        }
-        U.p(topLine);
-        U.p();
+    public MFrame getFrame() {
+        return frame;
     }
 
 }

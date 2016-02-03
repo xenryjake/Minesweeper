@@ -10,7 +10,7 @@ import com.xenry.minesweeper.Minesweeper;
 public class Tile {
 
     private Pos pos;
-    private boolean bomb, revealed;
+    private boolean bomb, revealed, flagged;
     private char nearbyBombs;
 
     public Tile(int x, int y, boolean bomb){
@@ -43,7 +43,8 @@ public class Tile {
     }
 
     public char getChar(){
-        if(!revealed) return '#';
+        if(flagged) return '#';
+        if(!revealed) return ' ';
         if(bomb) return '*';
         return nearbyBombs;
     }
@@ -54,6 +55,7 @@ public class Tile {
             Minesweeper.getGame().end();
             return;
         }
+        finalReveal();
     }
 
     public void finalReveal(){
@@ -62,6 +64,15 @@ public class Tile {
 
     public char getNearbyBombs() {
         return nearbyBombs;
+    }
+
+    public boolean toggleFlag(){
+        flagged = !flagged;
+        return flagged;
+    }
+
+    public boolean isFlagged(){
+        return flagged;
     }
 
 }
