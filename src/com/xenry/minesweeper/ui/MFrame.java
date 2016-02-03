@@ -20,6 +20,7 @@ public class MFrame extends JFrame {
     private Game game;
     private MPanel[][] panels;
     private JLabel infoLabel;
+    private JButton toggleModeButton;
 
     public MFrame(final Game game){
         this.game = game;
@@ -42,24 +43,32 @@ public class MFrame extends JFrame {
         add(pan, BorderLayout.CENTER);
         infoLabel = new JLabel("loading...");
         add(infoLabel, BorderLayout.NORTH);
-        {
-            final JButton button = new JButton("Switch to Flag mode");
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    flagMode = !flagMode;
-                    button.setText("Switch to " + (flagMode ? "Mine" : "Flag") + " mode");
-                }
-            });
-            add(button, BorderLayout.SOUTH);
-        }
-        setSize(400,400);
+        toggleModeButton = new JButton("Switch to Flag mode");
+        toggleModeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toggleMode();
+            }
+        });
+        add(toggleModeButton, BorderLayout.SOUTH);
+        setSize(400, 400);
     }
 
     public void updateAll(){
         for(MPanel[] buttons : this.panels)
             for(MPanel button : buttons)
                 button.update();
+        updateToggleModeButton();
+    }
+
+    public void updateToggleModeButton(){
+        toggleModeButton.setText("Switch to " + (flagMode ? "Mine" : "Flag") + " mode");
+    }
+
+    public boolean toggleMode(){
+        if(game.isActive()) flagMode = !flagMode;
+        updateToggleModeButton();
+        return flagMode;
     }
 
     public boolean isFlagMode() {

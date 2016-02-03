@@ -51,6 +51,7 @@ public class Game {
     }
 
     public void stop(){
+        if(frame.isFlagMode()) frame.toggleMode();
         timer.setActive(false);
         active = false;
         board.revealAll();
