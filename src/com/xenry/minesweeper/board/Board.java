@@ -17,9 +17,10 @@ public class Board {
     public Board(int boardSizeLength, int chance){
         tiles = new Tile[boardSizeLength][boardSizeLength];
 
+        Random random = new Random();
         for(int x = 0; x < tiles.length; x++){
             for(int y = 0; y < tiles[x].length; y++){
-                tiles[x][y] = new Tile(x, y, new Random().nextInt(chance) == 0);
+                tiles[x][y] = new Tile(x, y, random.nextInt(chance) == 0);
                 if(tiles[x][y].isBomb()) bombs++;
             }
         }
