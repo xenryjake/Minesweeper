@@ -16,10 +16,8 @@ public class Timer extends Thread {
     public void run() {
         try{
             Thread.sleep(1000);
-            if(active){
-                currentSecs += 1;
-                Minesweeper.getGame().getFrame().updateTime(currentSecs);
-            }
+            if(active)
+                Minesweeper.getGame().getFrame().updateTime(++currentSecs);
         }catch(Exception ex){}
         run();
     }
