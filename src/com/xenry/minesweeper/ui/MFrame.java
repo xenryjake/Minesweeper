@@ -1,5 +1,6 @@
 package com.xenry.minesweeper.ui;
 
+import com.xenry.minesweeper.Minesweeper;
 import com.xenry.minesweeper.board.Tile;
 import com.xenry.minesweeper.game.Game;
 
@@ -59,7 +60,11 @@ public class MFrame extends JFrame {
         toggleModeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                toggleMode();
+                if(game.isActive()) toggleMode();
+                else{
+                    game.restart();
+                    setVisible(false);
+                }
             }
         });
         togglePan.add(toggleModeButton);
@@ -97,7 +102,8 @@ public class MFrame extends JFrame {
     }
 
     public void updateToggleModeButton(){
-        toggleModeButton.setText("Switch to " + (flagMode ? "Mine" : "Flag") + " mode");
+        if(game.isActive()) toggleModeButton.setText("Switch to " + (flagMode ? "Mine" : "Flag") + " mode");
+        else toggleModeButton.setText("Start new game");
     }
 
     public boolean toggleMode(){

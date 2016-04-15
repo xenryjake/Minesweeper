@@ -22,13 +22,13 @@ public class Game {
         this.difficulty = difficulty;
         this.active = true;
         this.timer = new Timer();
-        board = new Board(difficulty.getBoardSize(), difficulty.getChance());
+        timer.start();
+        this.board = new Board(difficulty.getBoardSize(), difficulty.getChance());
     }
 
     public void enable(){
         U.p("Starting Minesweeper...");
         this.frame = new MFrame(this);
-        timer.start();
         timer.setActive(true);
     }
 
@@ -77,6 +77,18 @@ public class Game {
 
     public Timer getTimer() {
         return timer;
+    }
+
+    public void restart(){
+        if(active) stop();
+        this.board = null;
+        this.frame = null;
+        timer.reset();
+        timer.setActive(false);
+
+        this.active = true;
+        this.board = new Board(difficulty.getBoardSize(), difficulty.getChance());
+        enable();
     }
 
 }
