@@ -1,6 +1,5 @@
 package com.xenry.minesweeper.ui;
 
-import com.xenry.minesweeper.Minesweeper;
 import com.xenry.minesweeper.board.Tile;
 import com.xenry.minesweeper.game.Game;
 

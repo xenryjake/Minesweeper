@@ -7,6 +7,7 @@ package com.xenry.minesweeper.game;
  */
 public enum Difficulty {
 
+    BEGINNER(7, 11),
     EASY(11, 9),
     MEDIUM(15, 8),
     HARD(21, 6);
