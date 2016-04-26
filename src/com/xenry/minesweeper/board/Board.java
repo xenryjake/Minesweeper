@@ -75,6 +75,7 @@ public class Board {
         if(first) reveal(x, y);
         else if(tiles[x][y].isRevealed()) return;
         if(tiles[x][y].isBomb()) return;
+        if(tiles[x][y].isFlagged()) return;
         reveal(x, y);
         if(tiles[x][y].getNearbyBombs() != Tile.NONE_NEARBY_CHAR) return;
         flood(x-1, y-1, false);
